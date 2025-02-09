@@ -22,7 +22,12 @@ const submit = async (cellPhoneNumber, msg, code) => {
         data = data?.root?.children[0]?.content;
         if (data) {
             const result = await model.find(cellPhoneNumber);
-            if (result) await model.update(cellPhoneNumber, code);
+            if (result)
+                {
+                    const resultdate = await model.findDate(cellPhoneNumber);
+                    if (resultdate)
+                    await model.update(cellPhoneNumber, code);
+                } 
             else await model.submit(cellPhoneNumber, code);
         }
     }
@@ -39,7 +44,7 @@ const submitSMS = async (cellPhoneNumber, msg, code) => {
     "parameters": [
       {
         "name": "Code",
-        "value": `${msg}${code}`
+        "value": `${msg}${code}${' این رمز برای مدت 24 ساعت اعتبار دارد. '}`
       }
     ]
     };
@@ -50,12 +55,20 @@ const submitSMS = async (cellPhoneNumber, msg, code) => {
         // console.log('response SMS',response)
          var  data1 = response;
            console.log('data1',data1)
-        //  if (data1) 
-            {
-         const result = await model.find(cellPhoneNumber.toString());
-        //  console.log('result find',result)
-            if (result) await model.update(cellPhoneNumber.toString(), code.toString());
-            
+        if (data1) {
+            const result = await model.find(cellPhoneNumber.toString());
+            console.log('result',result)
+            if (result)
+                {
+                    const resultdate = await model.findDate(cellPhoneNumber.toString());
+                    console.log('resultdate',resultdate)
+                    if (resultdate)
+                    await model.update(cellPhoneNumber.toString(), code.toString());
+                else
+                {
+                    return false;
+                }
+                } 
             else await model.submit(cellPhoneNumber.toString(), code.toString());
         }
     }
@@ -64,8 +77,8 @@ const submitSMS = async (cellPhoneNumber, msg, code) => {
 };
 
 const confirm = async (cellPhoneNumber, code) => {
-    const result = await model.confirm(cellPhoneNumber, code);
-
+    const result = await model.confirm(cellPhoneNumber.toString(), code.toString());
+    console.log('confirm',result)
     return result;
 };
 

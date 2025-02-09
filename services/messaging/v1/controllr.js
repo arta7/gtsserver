@@ -10,7 +10,8 @@ const submit = async (req, res) => {
     const code = utils.generateCode();
 
     const result = await service.submitSMS(cellPhoneNumber, messaging.providerMessage.meliPayamak.login, code);
-    console.log('result',result)
+    if(result == false) throw new customErrors.SmsCodeNotExpireError();
+    // console.log('result show message',result)
     res.send(result);
 };
 
@@ -18,9 +19,10 @@ const confirm = async (req, res) => {
     const { cellPhoneNumber, code } = req.body;
 
     const result = await service.confirm(cellPhoneNumber, code);
+    console.log('result confirm 2',result)
     if (!result) throw new customErrors.SmsCodeNotValidError();
-
-    res.status(204).send('');
+   
+    res.send(result);
 };
 
 
