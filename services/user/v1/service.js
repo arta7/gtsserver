@@ -16,7 +16,10 @@ const find = async (id) => {
 };
 
 const create = async (userName, password, firstName, lastName, nationalCode, personelCode, cellPhoneNumber, email, address, isActive, organizationId, workgroupId,UnitId) => {
-    const result = await model.create(userName, password, firstName, lastName, nationalCode, personelCode, cellPhoneNumber, email, address, isActive, organizationId, workgroupId,UnitId);
+   
+      console.log('UnitId',UnitId)
+     const result = await model.create(userName, password, firstName, lastName, nationalCode, personelCode, cellPhoneNumber, email, address, isActive, organizationId, workgroupId,UnitId);
+    console.log('result create',result)
     if (!result) throw new customErrors.CreateUserError();
 
     return result;

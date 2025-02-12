@@ -59,9 +59,10 @@ const create = async (userName, password, firstName, lastName, nationalCode, per
     .input('email', sql.NVarChar(50), email)
     .input('address', sql.NVarChar(500), address)
     .input('isActive', sql.Bit, isActive)
+    .input('UnitId', sql.BigInt, UnitId)
     .input('organizationId', sql.BigInt, organizationId)
     .input('workgroupId', sql.BigInt, workgroupId)
-    .input('UnitId', sql.BigInt, UnitId)
+   
     .execute(`${dbName}sp_S00_user_signup`);
     // .query(`INSERT INTO ${dbName}S00_user(userName, password, firstName, lastName, nationalCode, personelCode, cellPhoneNumber, email, address, isActive, isDeleted)
     //         VALUES(@userName, @password, @firstName, @lastName, @nationalCode, @personelCode, @cellPhoneNumber, @email, @address, @isActive, 0) 

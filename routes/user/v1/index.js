@@ -74,7 +74,7 @@ module.exports = (fastify, options, next) => {
           isActive: schemaTypes.boolean,
           workgroupId: schemaTypes.number,
           organizationId: schemaTypes.number,
-          UnitId: schemaTypes.number
+          UnitId: schemaTypes.number,
         },
       },
       response: {

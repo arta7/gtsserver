@@ -30,10 +30,12 @@ const create = async (req, res) => {
 
     const userInfo = await service.findByUserName(userName);
     if (userInfo) throw new customErrors.UserAlreadyExistError();
-
+    else
+    {
     const result = await service.create(userName, password, firstName, lastName, nationalCode, personelCode, cellPhoneNumber, email, address, isActive, organizationId, workgroupId,UnitId);
 
     res.status(200).send(result);
+    }
 };
 
 const extraDataCreate = async (req, res) => {
